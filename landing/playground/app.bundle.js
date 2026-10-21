@@ -3486,7 +3486,7 @@ When the engine grows a \`/v1/users/me\` endpoint, this store syncs up.`
         (byGroup[g] = byGroup[g] || []).push(d);
       }
       const activeDashObj = dashboards.find((d) => d.id === activeDash);
-      const activeGroup = activeDashObj?.group || (groups[0]?.id || "other");
+      const activeGroup = activeDashObj ? activeDashObj.group || "other" : groups[0]?.id || "other";
       const orderedGroups = [];
       const seen = /* @__PURE__ */ new Set();
       for (const g of groups) {

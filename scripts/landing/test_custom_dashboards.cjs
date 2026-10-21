@@ -59,3 +59,12 @@ for (const [id, custom] of [
   assert.match(restored.app.innerHTML,/data-panel="grounding"[^>]*style="grid-column: span 6/);
  });
 }
+
+test('the active custom dashboard is exposed in its expanded navigation group',async()=>{
+ const p=page({'user-copy':{name:'My dashboard',clonedFrom:'ai-overview'}});await p.flush();
+ assert.match(p.app.innerHTML,/<button[^>]+data-dash-group="other"[^>]+aria-expanded="true"/);
+ assert.match(p.app.innerHTML,/data-dash="user-copy" class="active"/);
+});
+test('default dashboards retain their expanded registered navigation group',async()=>{
+ const p=page({},'ai-overview');await p.flush();assert.match(p.app.innerHTML,/<button[^>]+data-dash-group="ai"[^>]+aria-expanded="true"/);
+});
