@@ -5,8 +5,8 @@ name: SEO
 # There is no static site generator here — 80 hand-written HTML files are
 # deployed verbatim by Cloudflare Pages — so nothing except this job enforces
 # canonicals, the Open Graph set, structured data, sitemap coverage or the
-# extensionless URL shape that Pages actually serves. Every check is Python 3
-# stdlib; no npm install, no lockfile, no supply-chain surface.
+# extensionless URL shape that Pages actually serves. Checks use Python 3 stdlib and dependency-free Node tests;
+# no npm install or lockfile is needed.
 #
 # The invariants seo_lint.py enforces come from the sitemaps.org protocol and
 # Google Search Central's crawling-and-indexing guidance; each rule number is
@@ -24,12 +24,14 @@ on:
       - 'landing/**'
       - 'content/**'
       - 'scripts/seo/**'
+      - 'scripts/landing/**'
       - '.github/workflows/seo.yml'
   pull_request:
     paths:
       - 'landing/**'
       - 'content/**'
       - 'scripts/seo/**'
+      - 'scripts/landing/**'
       - '.github/workflows/seo.yml'
 
 permissions:
@@ -54,6 +56,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Landing interaction regressions
+        run: node --test scripts/landing/test_*.cjs
 
       # #974: `updated:` is required frontmatter. Before it was, an article
       # could omit the field and silently date itself from the content file's
