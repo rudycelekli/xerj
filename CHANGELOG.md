@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Landing-page copy buttons report `COPY FAILED` when clipboard access is
+  denied or the legacy copy command fails, and retain their original label
+  after repeated clicks. A failed copy can be retried.
+
 - `xerj search` and a plain-string `xerj_search` rank a file that contains
   the query as an exact phrase (a pasted error message or log line) at the
   top. The bag-of-words leg alone let a short `defs` list sharing two of the
