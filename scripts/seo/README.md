@@ -14,6 +14,14 @@ repository root is always the invocation.
 
 ---
 
+The dependency-free playground state regressions run the committed browser
+bundle with controlled browser state: `node --test scripts/landing/test_*.cjs`
+(Node 22, also run by the SEO job). To regenerate the playground bundle, run
+`esbuild playground/src/app.js --bundle --outfile=playground/app.bundle.js`
+from `landing/`. Saved views restore the saved time range, cluster and filters;
+custom views also save their FROM/TO endpoints. Legacy saved views without
+endpoints retain the current custom endpoints.
+
 ## 1. Architecture
 
 ```
