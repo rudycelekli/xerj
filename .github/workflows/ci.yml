@@ -196,6 +196,9 @@ jobs:
         working-directory: engine
         run: cargo test --profile ci-test -p xerj-common xccode::manifest
 
+      - name: SWE-bench prediction patch round trips
+        run: python3 tools/xerj-code/swebench/test_patch_capture.py
+
       # The published MCP schema must match the served tools byte-for-byte;
       # regenerating it is scripts/mcp-schema-check.sh --write.
       # XERJ_BIN must be set explicitly: this job builds with --profile
