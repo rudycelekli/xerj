@@ -41,3 +41,21 @@ test('cyclic user templates terminate in the blank fallback',async()=>{
 test('a missing template keeps the documented blank fallback',async()=>{
  const p=page({'user-copy':{name:'Orphan',clonedFrom:'removed-template'}});await p.flush();assert.match(p.app.innerHTML,/NO TEMPLATE/);
 });
+
+for (const [id, custom] of [
+ ['user-copy', {'user-copy':{name:'My RAG',clonedFrom:'rag-quality'}}],
+ ['rag-quality', {}],
+]) {
+ test(`${id} retains resized, hidden and added panels after a fresh boot`,async()=>{
+  const p=page(custom,id);await p.flush();
+  await p.click({'data-size':'6','data-panel':'grounding'});
+  await p.click({'data-remove':'','data-panel':'halluc'});
+  await p.click('data-add','metric');
+  const stored=JSON.parse(p.localStorage['xerj.layout.'+id]);
+  assert.equal(stored.cols.grounding,6);assert.ok(stored.hidden.includes('halluc'));
+  const restored=mount(bundle,{hash:'#/dashboards/'+id,storage:{...p.localStorage}});await restored.flush();
+  assert.doesNotMatch(restored.app.innerHTML,/HALLUCINATION RATE/);
+  assert.ok(restored.app.innerHTML.includes(stored.added[0].id));
+  assert.match(restored.app.innerHTML,/data-panel="grounding"[^>]*style="grid-column: span 6/);
+ });
+}

@@ -5581,7 +5581,7 @@ borrows the accent color.`
   }
   function loadAllLayouts() {
     const out = {};
-    for (const id of Object.keys(registry)) {
+    for (const { id } of mergedDashboards(defaults, { includeHidden: true })) {
       try {
         const raw = localStorage.getItem(LS.layout(id));
         if (raw) out[id] = JSON.parse(raw);

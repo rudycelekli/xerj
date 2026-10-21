@@ -28,7 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Playground user dashboards resolve their inherited template for chart data
   and panel editing. Cloning a user dashboard retains the underlying template;
-  missing or cyclic template references keep the blank fallback.
+  missing or cyclic template references keep the blank fallback. Custom
+  dashboard layout overrides also survive reloading the page.
 
 - `xerj search` and a plain-string `xerj_search` rank a file that contains
   the query as an exact phrase (a pasted error message or log line) at the
