@@ -155,6 +155,9 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
+      - name: Hub pack planner contracts
+        run: python3 tools/hub-packs/test_hub_packs.py
+
       # Issue #977: the xc.py/xc-index.sh/xc-corpus.sh wrapper scripts are now
       # `xerj code` + `xerj corpus` + the xerj_code_search MCP tool, so the
       # toolkit's contracts are gated where the code lives — scoped cargo
