@@ -167,6 +167,9 @@ jobs:
         with:
           workspaces: engine
 
+      - name: Harbor trial-report contracts
+        run: python3 tools/benchmarks/harbor-3arm/test_collect_results.py
+
       # The contracts the old script tests pinned, now in Rust:
       #   xerj-common::xccode        - staleness refusal, RESTRICTED licence
       #                                warning, exit triangle, hybrid shape,
