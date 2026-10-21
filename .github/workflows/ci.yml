@@ -33,6 +33,15 @@ env:
 # point there, so only its ACTION ref is pinned, not what "nightly" resolves
 # to on the day the job runs.
 jobs:
+  debian-coverage-tests:
+    name: Debian coverage script tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Offline coverage regressions
+        run: python3 scripts/test_debian_rust_coverage.py
+
   # Change scoping. Docs-only pull requests used to run all ~22 jobs, and with
   # the org's concurrent-job limit that queued docs PRs behind Rust builds for
   # about an hour (53 queued runs on 2026-10-15). `changes` classifies the
