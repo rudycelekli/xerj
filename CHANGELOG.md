@@ -26,6 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Release-download snapshots now refuse malformed existing JSONL history without
+  replacing its contents. Repair the history file and rerun the snapshot command.
+
 - `xerj search` and a plain-string `xerj_search` rank a file that contains
   the query as an exact phrase (a pasted error message or log line) at the
   top. The bag-of-words leg alone let a short `defs` list sharing two of the
